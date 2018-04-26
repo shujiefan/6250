@@ -1,6 +1,7 @@
 package com.me.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,19 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
+	@RequestMapping(value = "/user/injectionError.htm", method = RequestMethod.GET)
+	public String handleError() {
+
+		return "injectionError";
+	}
+	
+	
+	@RequestMapping(value = "/injectionError.htm", method = RequestMethod.GET)
+	public String handleUError() {
+
+		return "injectionError";
+	}
+	
 
 	@RequestMapping(value = "/user/login.htm", method = RequestMethod.GET)
 	public String showLoginForm() {
@@ -65,6 +79,8 @@ public class UserController {
 			}
 			else if (u != null && u.getStatus() == 0) {
 				map.addAttribute("errorMessage", "Please activate your account to login!");
+				boolean resendLink = true;
+				map.addAttribute("resendLink", resendLink);
 				return "error";
 			} 
 			else {
@@ -109,6 +125,18 @@ public class UserController {
 
 			try {
 				//User u = userDao.register(user);
+				try {
+					List<User> userList = userDao.getList();
+					for(User u : userList) {
+						if(user.getUserEmail().equals(u.getUserEmail())) {
+							map.addAttribute("errorMessage", "User email already registered!");
+							return "user-create-form";
+						}
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				if(user.getRole().equals("Restaurant")) {
 					Restaurant r = new Restaurant();
@@ -189,8 +217,15 @@ public class UserController {
 
 		if (captcha.validate(captchaCode)) {
 			User user = userDao.get(useremail);
-			sendEmail(useremail, "Your password is : " + user.getPassword());
-			return "forgot-password-success";
+			if(user != null) {
+				sendEmail(useremail, "Your password is : " + user.getPassword());
+				return "forgot-password-success";
+			}
+			else {
+				request.setAttribute("captchamsg", "User Account does not exist");
+				return "forgot-password";
+			}
+			
 		} else {
 			request.setAttribute("captchamsg", "Captcha not valid");
 			return "forgot-password";

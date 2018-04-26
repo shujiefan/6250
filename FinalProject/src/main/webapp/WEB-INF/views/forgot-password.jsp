@@ -6,12 +6,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../dist/css/bootstrapValidator.css"/>
 <title>Insert title here</title>
 </head>
 <body>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 	<font color="red">${captchamsg}</font>
-	<form action="${contextPath}/user/forgotpassword.htm" method="POST">
+	<form action="${contextPath}/user/forgotpassword.htm" method="POST">		
 		<table>
 			<tr>
 				<td>Enter your email:</td>
@@ -35,8 +40,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="2"><a href="${contextPath}/">Cancel</a></td>
-				<td colspan="2"><input type="submit" value="Submit" /></td>
+				<td colspan="2"><a href="${contextPath}/" class="btn btn-primary">Cancel</a></td>
+				<td colspan="2"><input type="submit" value="Submit" class="btn btn-primary" /></td>
 			</tr>
 		</table>
 

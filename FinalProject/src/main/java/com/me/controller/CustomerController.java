@@ -37,6 +37,12 @@ public class CustomerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 	
+	@RequestMapping(value = "/customer/injectionError.htm", method = RequestMethod.GET)
+	public String handleError() {
+
+		return "injectionError";
+	}
+	
 
 	@RequestMapping(value = "/customer/restaurants-list.htm", method = RequestMethod.GET)
 	public String handleRestaurantList(HttpServletRequest request, RestaurantDAO restaurantDao, ModelMap map) {
@@ -288,7 +294,7 @@ public class CustomerController {
 			Customer c = customerDao.get(u.getUserId());
 			Map<Restaurant, Set<CartItem>> itemMap = (Map<Restaurant, Set<CartItem>>) request.getSession().getAttribute("itemMap");
 			
-			if(itemMap == null) {
+			if(itemMap.size() == 0) {
 				return "error";
 			}
 			else {
@@ -369,7 +375,7 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value = "/customer/customer-info.htm", method = RequestMethod.GET)
-	public String showInfoForm(HttpServletRequest request, RestaurantDAO restaurantDao) {
+	public String showInfoForm(HttpServletRequest request, UserDAO userDao) {
 				
 		return "customer-info";
 	}
@@ -384,7 +390,8 @@ public class CustomerController {
 			String phoneNumber = request.getParameter("phoneNumber");
 			String address = request.getParameter("address");
 
-			userDao.updateUserInfo(u.getUserId(), address, phoneNumber, name);	
+			u = userDao.updateUserInfo(u.getUserId(), address, phoneNumber, name);	
+			request.getSession().setAttribute("user", u);
 			request.getSession().setAttribute("result", "Update Customer Information Successfully");
 
 		} catch (Exception e) {

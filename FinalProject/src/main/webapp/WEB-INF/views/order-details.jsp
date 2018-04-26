@@ -25,8 +25,8 @@
 	</div>
 
 	
-	<c:set var="order" value="${sessionScope.currentOrder}" />
-	<h2>Order ID: ${order.orderId}</h2>
+	<%-- <c:set var="order" value="${sessionScope.currentOrder}" /> --%>
+	<h2>Order ID: ${sessionScope.currentOrder.orderId}</h2>
 	<c:forEach var="item" items="${sessionScope.orderItemList}">
 		<div class="list-group">
 			<div class="list-group-item">
@@ -39,19 +39,19 @@
 		</div>
     </c:forEach>
     <div>
-		Total Quantities: ${order.totalQuantity}&nbsp;&nbsp;&nbsp;
-		Total Price: ${order.totalPrice}&nbsp;&nbsp;&nbsp;
-		Order Status: ${order.orderStatus}
+		Total Quantities: ${sessionScope.currentOrder.totalQuantity}&nbsp;&nbsp;&nbsp;
+		Total Price: ${sessionScope.currentOrder.totalPrice}&nbsp;&nbsp;&nbsp;
+		Order Status: ${sessionScope.currentOrder.orderStatus}
 		<br/>
 		<br/>
 		<c:set var="status" value="Customer Received Food" />
 		<c:set var="status1" value="Food under delivering" />
 		<c:choose>
-			<c:when test="${order.orderStatus eq status}">
+			<c:when test="${sessionScope.currentOrder.orderStatus eq status}">
 				<h2>Order has been completed!</h2>
 			</c:when>
-			<c:when test="${order.orderStatus eq status}">
-				<a href="${contextPath}/customer/updateOrder.htm?orderId=${order.orderId}">Received Food</a>
+			<c:when test="${sessionScope.currentOrder.orderStatus eq status1}">
+				<a href="${contextPath}/customer/updateOrder.htm?orderId=${sessionScope.currentOrder.orderId}">Received Food</a>
 			</c:when>
 			<c:otherwise>
 				<h2>Order Processing!</h2>

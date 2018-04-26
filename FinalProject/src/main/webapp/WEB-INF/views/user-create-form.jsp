@@ -6,69 +6,109 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../dist/css/bootstrapValidator.css"/>
+
+    <script type="text/javascript" src="../vendor/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../dist/js/bootstrapValidator.js"></script>
 <title>User Registration</title>
 </head>
 <body>
 	<font color="red">${errorMessage}</font>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-	<form action="${contextPath}/user/create.htm" method="POST">
-		<table>
-		<tr>
-		    <td>User Email:</td>
-		    <td><input type="text" name="username" size="30" required="required" /></td>
-		</tr>
-		
-		<tr>
-		    <td>Password:</td>
-		    <td><input type="password" name="password" size="30" required="required"/></td>
-		</tr>
-		
-		<tr>
-		    <td>Role:</td>
-		    <td>
-		    	<select name="role">
-		    		<option value="Customer">Customer</option>
-					<option value="Restaurant">Restaurant</option>
-		    	</select>
-		    </td>
-		</tr>
-		
-		<tr>
-		    <td>Name:</td>
-		    <td><input type="text" name="name" size="30" required="required"/></td>
-		</tr>
-		
-		<tr>
-		    <td>Phone Number:</td>
-		    <td><input type="text" name="phoneNumber" size="30" required="required"/></td>
-		</tr>
-		
-		<tr>
-		    <td>Address:</td>
-		    <td><input type="text" name="address" size="30" required="required"/></td>
-		</tr>
-		
-		<tr>
-				<td colspan="2">
-				<label for="captchaCode" class="prompt">Retype the characters from the picture:</label> 
-				<%
-				  // Adding BotDetect Captcha to the page
-				  Captcha captcha = Captcha.load(request, "CaptchaObject");
-				  captcha.setUserInputID("captchaCode");
-				
-				  String captchaHtml = captcha.getHtml();
-				  out.write(captchaHtml);
-				%>
-				<input id="captchaCode" type="text" name="captchaCode" required="required"/>
-				</td>
-			</tr>
-		
-		<tr>
-		    <td colspan="2"><a href="${contextPath}/">Cancel</a></td>
-		    <td colspan="2"><input type="submit" value="Create Account" /></td>
-		</tr>
-				
-		</table>
-	</form>
+	<div class="container">
+		<form action="${contextPath}/user/create.htm" method="POST" class="form-horizontal">
+			<div class="form-group">
+                <label class="col-lg-3 control-label">User Email:</label>
+                <div class="col-lg-5">
+                    <input type="email" class="form-control" name="username" required />
+                </div>
+            </div>
+            
+            <div class="form-group">
+			    <label class="col-lg-3 control-label">Password:</label>
+			    <div class="col-lg-5">
+			        <input type="password" class="form-control" name="password"
+			            data-bv-message="The password is not valid"
+			            required
+			            data-bv-notempty-message="The password is required and cannot be empty"			
+			            pattern="[a-zA-Z0-9]+"
+			            data-bv-regexp-message="The username can only consist of alphabetical, number" />
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label class="col-lg-3 control-label">Role:</label>
+			    <div class="col-lg-5">
+			        <select name="role">
+			    		<option value="Customer">Customer</option>
+						<option value="Restaurant">Restaurant</option>
+			    	</select>
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label class="col-lg-3 control-label">Name:</label>
+			    <div class="col-lg-5">
+			        <input type="text" class="form-control" name="name"
+			            data-bv-message="The name is not valid"
+			            required
+			            data-bv-notempty-message="The name is required and cannot be empty"			
+			            pattern="[a-zA-Z][a-zA-Z\s\']+"
+			            data-bv-regexp-message="The username can only consist of alphabetical" />
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label class="col-lg-3 control-label">Phone Number:</label>
+			    <div class="col-lg-5">
+			        <input type="text" class="form-control" name="phoneNumber"
+			            data-bv-message="The phoneNumber is not valid"
+			            required
+			            data-bv-notempty-message="The phoneNumber is required and cannot be empty"			
+			            pattern="[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+			            data-bv-regexp-message="The phoneNumber should be a 10 digits" />
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label class="col-lg-3 control-label">Address:</label>
+			    <div class="col-lg-5">
+			        <input type="text" class="form-control" name="address"
+			            data-bv-message="The address is not valid"
+			            required
+			            data-bv-notempty-message="The address is required and cannot be empty"			
+			            pattern="[a-zA-Z0-9][a-zA-Z0-9\s\,]+"
+			            data-bv-regexp-message="The address can only consist of alphabetical, number" />
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <label for="captchaCode" class="col-lg-3 control-label">Retype the characters from the picture:</label>
+			    <div class="col-lg-5">
+				    <%
+					  // Adding BotDetect Captcha to the page
+					  Captcha captcha = Captcha.load(request, "CaptchaObject");
+					  captcha.setUserInputID("captchaCode");
+					
+					  String captchaHtml = captcha.getHtml();
+					  out.write(captchaHtml);
+					%>
+					<input id="captchaCode" type="text" name="captchaCode" class="form-control" required="required"/>
+			    </div>
+			</div>
+			
+			<div style="text-align:center">
+				<div class="col-lg-3 control-label"><a href="${contextPath}/" class="btn btn-primary" >Cancel</a></div>
+			    <input type="submit" value="Create Account" class="btn btn-primary" />
+		    </div>
+			
+			
+		</form>
+	</div>
 </body>
 </html>

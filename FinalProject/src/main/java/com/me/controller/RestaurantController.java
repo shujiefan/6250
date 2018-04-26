@@ -31,6 +31,12 @@ import com.me.pojo.User;
 public class RestaurantController {
 
 	private static final Logger logger = LoggerFactory.getLogger(RestaurantController.class);
+	
+	@RequestMapping(value = "/restaurant/injectionError.htm", method = RequestMethod.GET)
+	public String handleError() {
+
+		return "injectionError";
+	}
 
 	@RequestMapping(value = "/restaurant/menu.htm", method = RequestMethod.GET)
 	public String showMenu(HttpServletRequest request, RestaurantDAO restaurantDao, MenuDAO menuDao, ModelMap map) {
@@ -124,7 +130,8 @@ public class RestaurantController {
 								cartDao.updateCart(c, c.getTotalQuantity(), c.getTotalPrice() + (Double.parseDouble(price) - previousPrice) * item.getQuantity());
 							}
 						}
-						
+						m = menuDao.getMenu(Long.parseLong(menuId));
+						request.getSession().setAttribute("menu", m);
 						return "resSuccess";
 					}
 					else {
@@ -204,7 +211,8 @@ public class RestaurantController {
 			String phoneNumber = request.getParameter("phoneNumber");
 			String address = request.getParameter("address");
 
-			userDao.updateUserInfo(u.getUserId(), address, phoneNumber, name);			
+			u = userDao.updateUserInfo(u.getUserId(), address, phoneNumber, name);	
+			request.getSession().setAttribute("user", u);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

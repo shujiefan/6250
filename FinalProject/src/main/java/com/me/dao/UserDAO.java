@@ -1,5 +1,7 @@
 package com.me.dao;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
@@ -24,6 +26,18 @@ public class UserDAO extends DAO {
 		} catch (HibernateException e) {
 			rollback();
 			throw new Exception("Could not get user " + userEmail, e);
+		}
+	}
+	
+	public List<User> getList() throws Exception {
+		try {
+			begin();
+			Query q = getSession().createQuery("from User");		
+			List<User> user = (List<User>) q.list();
+			return user;
+		} catch (HibernateException e) {
+			rollback();
+			throw new Exception("Could not get user ", e);
 		}
 	}
 	

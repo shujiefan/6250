@@ -30,27 +30,46 @@
 		</div>
 		<div class="panel-body">
 			<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-			<form action="${contextPath}/restaurant/addMenu.htm" method="POST">
-				<table>
-					<tr>
-					    <td>Menu Name:</td>
-					    <td><input type="text" name="name" size="30" required="required" /></td>
-					</tr>
-					<tr><td></td><td></td></tr>
-					<tr>
-					    <td>Price:</td>
-					    <td><input type="text" name="price" size="30" required="required" /></td>
-					</tr>
-					<tr><td></td><td></td></tr>
-					<tr>
-					    <td>Stock:</td>
-					    <td><input type="text" name="stock" size="30" required="required" /></td>
-					</tr>
-					<tr><td></td><td></td></tr>
-					<tr>
-					    <td colspan="2"><input type="submit" value="Add Menu" /></td>
-					</tr>
-				</table>
+			<form action="${contextPath}/restaurant/addMenu.htm" method="POST" class="form-horizontal">
+				<div class="form-group">
+		            <label class="col-lg-3 control-label">Menu Name:</label>
+		                <div class="col-lg-5">
+		                    <input type="text" class="form-control" name="name"
+		                        data-bv-message="The name is not valid"
+					            required
+					            data-bv-notempty-message="The name is required and cannot be empty"	
+		                        pattern="[a-zA-Z0-9][a-zA-Z0-9\s\']+"
+		                        data-bv-regexp-message="The name should follow the valid type" />
+		                </div>	                
+		            </div>
+		            
+	            <div class="form-group">
+	                <label class="col-lg-3 control-label">Price:</label>
+	                <div class="col-lg-5">
+	                    <input type="text" class="form-control" name="price"
+	                        data-bv-message="The price is not valid"
+				            required
+				            data-bv-notempty-message="The price is required and cannot be empty"	
+	                        pattern="[0-9]*\.?[0-9]*"
+	                        data-bv-regexp-message="The price should follow the valid type" />
+	                </div>	                
+	            </div>
+	            
+	            <div class="form-group">
+	                <label class="col-lg-3 control-label">Stock:</label>
+	                <div class="col-lg-5">
+	                    <input type="text" class="form-control" name="stock"
+	                        data-bv-message="The stock is not valid"
+				            required
+				            data-bv-notempty-message="The stock is required and cannot be empty"	
+	                        pattern="[0-9]+"
+	                        data-bv-regexp-message="The stock should follow the valid type" />
+	                </div>	                
+	            </div>
+	            
+	            <div style="text-align:center">
+				    <input type="submit" value="Add Menu" class="btn btn-primary" />
+			    </div>
 			</form>
 		</div>
 	</div>

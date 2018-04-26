@@ -24,8 +24,8 @@
 	</div>
 	
 	
-	<c:set var="order" value="${sessionScope.rescurrentOrder}" />
-	<h2>Order ID: ${order.orderId}</h2>
+	<%-- <c:set var="order" value="${sessionScope.rescurrentOrder}" /> --%>
+	<h2>Order ID: ${sessionScope.rescurrentOrder.orderId}</h2>
 	<c:forEach var="item" items="${sessionScope.resorderItemList}">
 		<div class="list-group">
 			<div class="list-group-item">
@@ -38,22 +38,22 @@
 		</div>
     </c:forEach>
     <div>
-		Total Quantities: ${order.totalQuantity}&nbsp;&nbsp;&nbsp;
-		Total Price: ${order.totalPrice}&nbsp;&nbsp;&nbsp;
-		Order Status: ${order.orderStatus}
+		Total Quantities: ${sessionScope.rescurrentOrder.totalQuantity}&nbsp;&nbsp;&nbsp;
+		Total Price: ${sessionScope.rescurrentOrder.totalPrice}&nbsp;&nbsp;&nbsp;
+		Order Status: ${sessionScope.rescurrentOrder.orderStatus}
 		<br/>
 		<br/>
 		<c:set var="status" value="Customer Received Food" />
 		<c:set var="status1" value="Food under delivering" />
 		<c:choose>
-			<c:when test="${order.orderStatus eq status}">
+			<c:when test="${sessionScope.rescurrentOrder.orderStatus eq status}">
 				<h2>Order has been completed!</h2>
 			</c:when>
-			<c:when test="${order.orderStatus eq status1}">
+			<c:when test="${sessionScope.rescurrentOrder.orderStatus eq status1}">
 				<h2>Food under delivering!</h2>
 			</c:when>
 			<c:otherwise>
-				<a href="${contextPath}/restaurant/updateOrder.htm?orderId=${order.orderId}">Food under delivering</a>
+				<a href="${contextPath}/restaurant/updateOrder.htm?orderId=${sessionScope.rescurrentOrder.orderId}">Food under delivering</a>
 			</c:otherwise>
 		</c:choose>
     </div>

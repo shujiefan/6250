@@ -31,27 +31,46 @@
 		</div>
 		<div class="panel-body">
 			<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-			<form action="${contextPath}/restaurant/res-info.htm" method="POST">
-				<table>
-					<tr>
-					    <td>Restaurant Name:</td>
-					    <td><input type="text" name="name" size="30" required="required" value="${res.name}" /></td>
-					</tr>
-					<tr><td></td><td></td></tr>
-					<tr>
-					    <td>Phone Number:</td>
-					    <td><input type="text" name="phoneNumber" size="30" required="required" value="${res.phoneNumber}" /></td>
-					</tr>
-					<tr><td></td><td></td></tr>
-					<tr>
-					    <td>Address:</td>
-					    <td><input type="text" name="address" size="30" required="required" value="${res.address}" /></td>
-					</tr>
-					<tr><td></td><td></td></tr>
-					<tr>
-					    <td colspan="2"><input type="submit" value="Update Information" /></td>
-					</tr>
-				</table>
+			<form action="${contextPath}/restaurant/res-info.htm" method="POST" class="form-horizontal">
+				<div class="form-group">
+				    <label class="col-lg-3 control-label">Name:</label>
+				    <div class="col-lg-5">
+				        <input type="text" class="form-control" name="name" value="${res.name}"
+				            data-bv-message="The name is not valid"
+				            required
+				            data-bv-notempty-message="The name is required and cannot be empty"			
+				            pattern="[a-zA-Z][a-zA-Z\s\']+"
+				            data-bv-regexp-message="The username can only consist of alphabetical" />
+				    </div>
+				</div>
+				
+				<div class="form-group">
+				    <label class="col-lg-3 control-label">Phone Number:</label>
+				    <div class="col-lg-5">
+				        <input type="text" class="form-control" name="phoneNumber" value="${res.phoneNumber}"
+				            data-bv-message="The phoneNumber is not valid"
+				            required
+				            data-bv-notempty-message="The phoneNumber is required and cannot be empty"			
+				            pattern="[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+				            data-bv-regexp-message="The phoneNumber should be a 10 digits" />
+				    </div>
+				</div>
+				
+				<div class="form-group">
+				    <label class="col-lg-3 control-label">Address:</label>
+				    <div class="col-lg-5">
+				        <input type="text" class="form-control" name="address" value="${res.address}"
+				            data-bv-message="The address is not valid"
+				            required
+				            data-bv-notempty-message="The address is required and cannot be empty"			
+				            pattern="[a-zA-Z0-9][a-zA-Z0-9\s\,]+"
+				            data-bv-regexp-message="The address can only consist of alphabetical, number" />
+				    </div>
+				</div>
+				
+				<div style="text-align:center">
+				    <input type="submit" value="Update Information" class="btn btn-primary" />
+			    </div>
 			</form>
 		</div>
 	</div>
